@@ -1,0 +1,11 @@
+{
+  "name": "nativescript",
+  "dependencies": {
+    "@nativescript/core": "~8.0.0",
+    "@nativescript/types": "~8.0.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.2.3",
+    "webpack-cli": "^4.7.2"
+  }
+}

@@ -7,6 +7,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:nativescript": "build-nativescript",
+    "build:mobile": "npm-run-all build build:nativescript",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -19,11 +21,13 @@
     "@angular/platform-browser": "~12.0.1",
     "@angular/platform-browser-dynamic": "~12.0.1",
     "@angular/router": "~12.0.1",
+    "@capacitor/android": "^3.0.0",
     "@capacitor/app": "1.0.0",
     "@capacitor/core": "3.0.0",
     "@capacitor/haptics": "1.0.0",
     "@capacitor/keyboard": "1.0.0",
     "@ionic/angular": "^5.5.2",
+    "@nativescript/capacitor": "file:../nativescript/capacitor",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
@@ -59,7 +63,9 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.2.4"
+    "ts-patch": "^1.3.2",
+    "typescript": "~4.2.4",
+    "webpack-cli": "^4.7.2"
   },
   "description": "An Ionic project"
 }

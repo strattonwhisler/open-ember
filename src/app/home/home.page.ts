@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { native } from '@nativescript/capacitor';
+
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor() {
+  }
+
+  openModal() {
+    native.hello();
+  }
 
 }
