@@ -15,7 +15,7 @@ import {
   bleScanNoResults,
   bleScanResults,
   bleScanSuccess
-} from './ble.state';
+} from './ble.actions';
 import { catchError, exhaustMap, map, mapTo, mergeMap, shareReplay } from 'rxjs/operators';
 import { BleClient, ScanResult } from '@capacitor-community/bluetooth-le';
 import { defer, from, Observable, of } from 'rxjs';
@@ -57,10 +57,10 @@ export class BleEffects {
           await BleClient.stopLEScan();
 
           return [
-            bleScanSuccess(),
             results.length > 0
               ? bleScanResults({ results })
-              : bleScanNoResults()
+              : bleScanNoResults(),
+            bleScanSuccess()
           ];
         } catch(error) {
           return [

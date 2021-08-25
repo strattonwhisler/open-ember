@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { bleConnectSuccess } from '../ble/ble.state';
-import { BleFacade } from '../ble/ble.facade';
+import { bleConnectSuccess } from '../ble/ble.actions';
 import { exhaustMap, withLatestFrom } from 'rxjs/operators';
 import { loadDeviceSuccess } from './device.state';
+import { Store } from '@ngrx/store';
+import { scanResults } from '../ble/ble.selectors';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class DeviceEffects {
     this.actions$.pipe(
       ofType(bleConnectSuccess),
       withLatestFrom(
-        this.ble.scanResults$
+        this.store$.select(scanResults)
       ),
       exhaustMap(([{ deviceId }, results]) => {
         const device = results.find(result => result.device.deviceId === deviceId);
@@ -28,6 +29,6 @@ export class DeviceEffects {
     )
   );
 
-  constructor(private actions$: Actions, private ble: BleFacade) {
+  constructor(private actions$: Actions, private store$: Store) {
   }
 }

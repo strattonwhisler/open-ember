@@ -31,7 +31,9 @@
             <ion-label>
               {{ result.localName || result.device.name }}
             </ion-label>
-            <ion-icon slot="end" name="link-outline"></ion-icon>
+            <ng-container *ngIf="ble.connecting$ | ngrxPush; then pairingIcon; else pairIcon"></ng-container>
+            <ng-template #pairIcon><ion-icon slot="end" name="link-outline"></ion-icon></ng-template>
+            <ng-template #pairingIcon><ion-spinner slot="end"></ion-spinner></ng-template>
           </ion-item>
         </ion-list>
       </ion-col>

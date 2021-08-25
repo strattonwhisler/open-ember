@@ -3,7 +3,7 @@ import { BleFacade } from '../domain/ble/ble.facade';
 
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-pairing',
   templateUrl: 'pairing.page.html'
 })
 export class PairingPage implements OnInit {

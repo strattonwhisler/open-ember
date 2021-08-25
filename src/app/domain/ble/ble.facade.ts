@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AppState } from '@capacitor/app';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import {
-  bleConnect,
+  bleConnect, bleConnectFailure, bleConnectSuccess,
   bleDisconnect,
   bleInitialize,
   bleScan,
   bleScanFailure,
   bleScanResults,
   bleScanSuccess
-} from './ble.state';
+} from './ble.actions';
 import { merge, Observable } from 'rxjs';
 import { ScanResult } from '@capacitor-community/bluetooth-le';
 import { Actions, ofType } from '@ngrx/effects';
 import { map, mapTo, shareReplay } from 'rxjs/operators';
-import { NAME } from './ember-ble.consts';
+import * as EmberBle from './ember-ble.consts';
+import { scanResults } from './ble.selectors';
 
 
 @Injectable()
@@ -26,9 +27,16 @@ export class BleFacade {
     shareReplay(1)
   );
 
-  readonly scanResults$: Observable<ScanResult[]> = this.actions$.pipe(
-    ofType(bleScanResults),
-    map(({ results }) => results.filter(result => result.device.name === NAME)),
+  readonly connecting$: Observable<boolean> = merge(
+    this.actions$.pipe(ofType(bleConnect), mapTo(true)),
+    this.actions$.pipe(ofType(bleConnectSuccess, bleConnectFailure), mapTo(false)),
+  ).pipe(
+    shareReplay(1)
+  );
+
+  readonly scanResults$: Observable<ScanResult[]> = this.store$.pipe(
+    select(scanResults),
+    map(results => results.filter(result => result.device.name === EmberBle.NAME)),
     shareReplay(1)
   );
 

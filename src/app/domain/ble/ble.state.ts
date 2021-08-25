@@ -1,47 +1,31 @@
-import { createAction, props } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
+import { bleScanNoResults, BleScanResultProps, bleScanResults } from './ble.actions';
 import { ScanResult } from '@capacitor-community/bluetooth-le';
-import { ErrorProps } from '../state.utils';
 
-/* Initialize */
-
-export const bleInitialize = createAction('@open-ember/ble/initialize');
-export const bleInitializeSuccess = createAction('@open-ember/ble/initialize/success');
-export const bleInitializeFailure = createAction('@open-ember/ble/initialize/failure', props<ErrorProps>());
-
-/* Scan */
-
-export interface BleScanProps {
-  duration: number;
+export interface BleState {
+  scanResults: ScanResult[];
 }
-export const bleScan = createAction('@open-ember/ble/scan', props<BleScanProps>());
-export const bleScanSuccess = createAction('@open-ember/ble/scan/success');
-export const bleScanFailure = createAction('@open-ember/ble/scan/failure', props<ErrorProps>());
 
-export interface BleScanResultProps {
-  results: ScanResult[];
-}
-export const bleScanResults = createAction('@open-ember/ble/scan/results', props<BleScanResultProps>());
-export const bleScanNoResults = createAction('@open-ember/ble/scan/no-results');
+export const initialBleState: BleState = {
+  scanResults: []
+};
 
-/* Connection */
+const reduceScanResults = (state: BleState, { results }: BleScanResultProps): BleState => ({
+  ...state,
+  scanResults: results
+});
 
-export interface BleConnectProps {
-  deviceId: string;
-}
-export const bleConnect = createAction('@open-ember/ble/connect', props<BleConnectProps>());
-export interface BleConnectSuccessProps {
-  deviceId: string;
-}
-export const bleConnectSuccess = createAction('@open-ember/ble/connect/success', props<BleConnectSuccessProps>());
-export const bleConnectFailure = createAction('@open-ember/ble/connect/failure', props<ErrorProps>());
+const reduceScanNoResults = (state, /* unused */): BleState => ({
+  ...state,
+  scanResults: []
+});
 
-export interface BleDisconnectProps {
-  deviceId: string;
-}
-export const bleDisconnect = createAction('@open-ember/ble/disconnect', props<BleDisconnectProps>());
-export interface BleDisconnectSuccessProps {
-  deviceId: string;
-}
-export const bleDisconnectSuccess = createAction('@open-ember/ble/disconnect/success', props<BleDisconnectSuccessProps>());
-export const bleDisconnectFailure = createAction('@open-ember/ble/disconnect/failure', props<ErrorProps>());
+const reducer = createReducer(
+  initialBleState,
+  on(bleScanResults, reduceScanResults),
+  on(bleScanNoResults, reduceScanNoResults),
+);
 
+export function bleReducer(state: BleState, action: Action): BleState {
+  return reducer(state, action);
+}
