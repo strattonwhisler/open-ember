@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">open-ember</string>
+    <string name="title_activity_main">open-ember</string>
+    <string name="package_name">dev.whisler.openember</string>
+    <string name="custom_url_scheme">dev.whisler.openember</string>
+</resources>
