@@ -1218,6 +1218,13 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
+"@briebug/ngrx-auto-entity@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@briebug/ngrx-auto-entity/-/ngrx-auto-entity-0.6.1.tgz#6b725d77ae315592837e7521c874df2cb5d7b459"
+  integrity sha512-J0nbgUgeL6nnzh1agaZsu0brh1Z6SVKyzvgw3kcKD7lAVbR3hXjuTBbpqTbt05n9Joyqt0pw45A/N3b4SHL6NQ==
+  dependencies:
+    tslib "^1.9.0"
+
 "@capacitor-community/bluetooth-le@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@capacitor-community/bluetooth-le/-/bluetooth-le-1.1.2.tgz#bb0e3a7a0fe5d2ee9f733b82056987c1a2ea2c7f"
@@ -1441,6 +1448,34 @@
     loader-utils "^2.0.0"
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
+
+"@ngrx/component@^12.2.0":
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/component/-/component-12.2.0.tgz#e207cf07ec3a99a32c02d0f1a756010006f18d60"
+  integrity sha512-g3KiP0qANYcpBEOIkErF1gut1JLHSAHI82FnKQJwTGqLwsAeX6rG3Yh9E9nzEqmPkQcnsNtCBZKy/lRU+cslJw==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/effects@^12.2.0":
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-12.2.0.tgz#833f16339d8397905df5a30cf491b1afaa957b7b"
+  integrity sha512-TyXsUnUWiK7k9qq+Upw7NsvnOtxw1txvAjYhVI3PHLuiDyCtvcrpWHliKC/vsAiINJSytaUdVJu+wCQe3J/z4A==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/store-devtools@^12.2.0":
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-12.2.0.tgz#dc0a32458e0f69080d05e881ce03a9768b92c599"
+  integrity sha512-R8GBVk1zki/IRl022v2LRWEx1yCS4xQdP1mpK5sbfY+yuxDouY3wkgT02Wb225TJthm9DE6xJOaXu5maHqgUHg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/store@^12.2.0":
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-12.2.0.tgz#3b413d95e1b311ea8598f6eaee3cc7ae890f8619"
+  integrity sha512-DV1Yu4VhuSV6OfeHFdKEhuQTcHTMkn0igT6V3/x/FpzJ8vaq7tAN78iALMydce+YX+FcdFgj3cr3URQfYfisMA==
+  dependencies:
+    tslib "^2.0.0"
 
 "@ngtools/webpack@12.0.5":
   version "12.0.5"
