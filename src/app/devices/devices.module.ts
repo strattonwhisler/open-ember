@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { HomePage } from './home.page';
+import { DevicesPage } from './devices.page';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { DevicesPageRoutingModule } from './devices-routing.module';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { StateModule } from '../domain/state.module';
 
@@ -14,11 +14,11 @@ import { StateModule } from '../domain/state.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    DevicesPageRoutingModule,
     ReactiveComponentModule,
     StateModule
   ],
-  declarations: [HomePage]
+  declarations: [DevicesPage]
 })
-export class HomePageModule {
+export class DevicesPageModule {
 }

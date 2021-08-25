@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/devices"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Pairing
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-align-self-start ion-align-items-start">
+        <ion-button [disabled]="ble.scanning$ | ngrxPush" (click)="ble.scan()">
+          <ion-icon slot="start" name="radio-outline"></ion-icon>
+          Scan
+        </ion-button>
+        <ion-spinner *ngIf="ble.scanning$ | ngrxPush"></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item
+            *ngFor="let result of ble.scanResults$ | ngrxPush"
+            button
+            (click)="ble.connect(result.device.deviceId)"
+          >
+            <ion-label>
+              {{ result.localName || result.device.name }}
+            </ion-label>
+            <ion-icon slot="end" name="link-outline"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

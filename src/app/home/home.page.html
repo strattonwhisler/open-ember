@@ -7,28 +7,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Open Ember</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-button (click)="scan()">Scan</ion-button>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-list>
-            <ion-item *ngFor="let result of results" button (click)="pair()">
-              <ion-label>{{ result.localName }}</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-text class="ion-text-center">
+          <h1>Welcome to Open-Ember!</h1>
+          <p>To get started, click Devices, the the plus icon.<p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
