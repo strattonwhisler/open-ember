@@ -1218,6 +1218,14 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
+"@capacitor-community/bluetooth-le@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@capacitor-community/bluetooth-le/-/bluetooth-le-1.1.2.tgz#bb0e3a7a0fe5d2ee9f733b82056987c1a2ea2c7f"
+  integrity sha512-afpUbhCFL6NBe4/KsQ/nxlLvDuAuSc9W9Dh+hZUe+ADTBfhSijsxGBm6NFa0KhmL8jlwgb+Enk8tDAg7MaApiQ==
+  dependencies:
+    "@types/web-bluetooth" "^0.0.10"
+    throat "^6.0.1"
+
 "@capacitor/android@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.0.2.tgz#818c98006456e00b34d11c231a8a53ec971b2ee2"
@@ -1653,6 +1661,11 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
+
+"@types/web-bluetooth@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.10.tgz#965a5938d99ed9bfe165bfe320b7d1d97c3a15bd"
+  integrity sha512-PcRei374vqqXZyPh9OhrrTzfufFDkrjR09VFXve6F42poTuImOHt5fymh4Q48FSo5GgoCFf68dkvDamd9sXgGA==
 
 "@types/webpack-sources@^0.1.5":
   version "0.1.9"
@@ -8880,6 +8893,11 @@ text-table@0.2.0, text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
+
+throat@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/throat/-/throat-6.0.1.tgz#d514fedad95740c12c2d7fc70ea863eb51ade375"
+  integrity sha512-8hmiGIJMDlwjg7dlJ4yKGLK8EsYqKgPWbG3b4wjJddKNwc7N7Dpn08Df4szr/sZdMVeOstrdYSsqzX6BYbcB+w==
 
 through2@^4.0.2:
   version "4.0.2"
