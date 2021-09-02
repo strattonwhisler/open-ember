@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { Store, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
@@ -24,6 +24,10 @@ const FACADES = [
 const EFFECTS = [
   BleEffects,
   DeviceEffects
+];
+
+const SERVICES = [
+  DeviceService
 ];
 
 const REDUCERS: ActionReducerMap<AppState> = {
@@ -58,11 +62,26 @@ const ENTITIES = [
   ],
   providers: [
     ...FACADES,
-    ...ENTITIES
+    ...ENTITIES,
+    ...SERVICES
   ]
 })
 export class StateModule {
-  constructor(store$: Store, actions$: Actions) {
+  static forRoot(): ModuleWithProviders<StateModule> {
+    return {
+      ngModule: StateModule
+    };
+  }
+
+  constructor(
+    store$: Store,
+    actions$: Actions,
+    @Optional() @SkipSelf() parentModule?: StateModule
+  ) {
+    if (parentModule) {
+      throw new Error('StateModule is already loaded. Import it in the AppModule only.');
+    }
+
     actions$.subscribe(({ type, ...props }) => console.debug('Action:', type, props));
     store$.subscribe(store => console.debug('Store:', store));
   }

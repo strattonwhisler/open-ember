@@ -11,8 +11,8 @@ const routes: Routes = [
     loadChildren: () => import('./pairing/pairing.module').then(m => m.PairingPageModule)
   },
   {
-    path: 'devices',
-    loadChildren: () => import('./devices/devices.module').then(m => m.DevicesPageModule)
+    path: 'device',
+    loadChildren: () => import('./device/device.module').then(m => m.DevicePageModule)
   },
   {
     path: '',
@@ -27,4 +27,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

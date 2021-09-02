@@ -14,7 +14,9 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "~plugin/*": ["./src/plugin/*"]
+      "~plugin/*": ["./src/plugin/*"],
+      "~domain/*": ["./src/app/domain/*"],
+      "~shared/*": ["./src/app/shared/*"]
     }
   },
   "angularCompilerOptions": {

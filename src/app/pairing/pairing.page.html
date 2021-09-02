@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/devices"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>
       Pairing
@@ -20,23 +20,23 @@
         <ion-spinner *ngIf="ble.scanning$ | ngrxPush"></ion-spinner>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-list>
-          <ion-item
-            *ngFor="let result of ble.scanResults$ | ngrxPush"
-            button
-            (click)="ble.connect(result.device.deviceId)"
-          >
-            <ion-label>
-              {{ result.localName || result.device.name }}
-            </ion-label>
-            <ng-container *ngIf="ble.connecting$ | ngrxPush; then pairingIcon; else pairIcon"></ng-container>
-            <ng-template #pairIcon><ion-icon slot="end" name="link-outline"></ion-icon></ng-template>
-            <ng-template #pairingIcon><ion-spinner slot="end"></ion-spinner></ng-template>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
   </ion-grid>
+
+  <ion-list>
+    <ion-card
+      *ngFor="let result of ble.scanResults$ | ngrxPush"
+      (click)="ble.connect(result.device.deviceId)"
+    >
+      <ion-item button>
+        <ion-label>
+          {{ result.localName || result.device.name }}
+        </ion-label>
+        <ng-container [ngSwitch]="result | pairStatus | ngrxPush">
+          <ion-icon *ngSwitchCase="PairStatus.Pair" slot="end" name="unlink-outline"></ion-icon>
+          <ion-icon *ngSwitchCase="PairStatus.Paired" slot="end" name="link-outline"></ion-icon>
+          <ion-spinner *ngSwitchCase="PairStatus.Pairing" slot="end"></ion-spinner>
+        </ng-container>
+      </ion-item>
+    </ion-card>
+  </ion-list>
 </ion-content>

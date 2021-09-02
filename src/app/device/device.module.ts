@@ -2,12 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { DevicesPage } from './devices.page';
-
-import { DevicesPageRoutingModule } from './devices-routing.module';
+import { DevicePage } from './device.page';
+import { DevicesPageRoutingModule } from './device-routing.module';
 import { ReactiveComponentModule } from '@ngrx/component';
-import { StateModule } from '../domain/state.module';
+import { SharedModule } from '~shared/shared.module';
 
+
+const PAGES = [
+  DevicePage
+];
 
 @NgModule({
   imports: [
@@ -16,9 +19,9 @@ import { StateModule } from '../domain/state.module';
     IonicModule,
     DevicesPageRoutingModule,
     ReactiveComponentModule,
-    StateModule
+    SharedModule
   ],
-  declarations: [DevicesPage]
+  declarations: [...PAGES]
 })
-export class DevicesPageModule {
+export class DevicePageModule {
 }

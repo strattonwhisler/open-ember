@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-
 import { HomePageRoutingModule } from './home-routing.module';
 import { ReactiveComponentModule } from '@ngrx/component';
-import { StateModule } from '../domain/state.module';
+import { SharedModule } from '~shared/shared.module';
 
+
+const PAGES = [
+  HomePage
+];
 
 @NgModule({
   imports: [
@@ -16,9 +19,9 @@ import { StateModule } from '../domain/state.module';
     IonicModule,
     HomePageRoutingModule,
     ReactiveComponentModule,
-    StateModule
+    SharedModule
   ],
-  declarations: [HomePage]
+  declarations: [...PAGES]
 })
 export class HomePageModule {
 }
