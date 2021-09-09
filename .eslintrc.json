@@ -24,7 +24,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "app",
+            "prefix": "oe",
             "style": "kebab-case"
           }
         ],
@@ -32,7 +32,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "app",
+            "prefix": "oe",
             "style": "camelCase"
           }
         ],
@@ -46,6 +46,8 @@
         "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/member-ordering": "off",
         "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "max-len": ["warn", 160],
         "no-underscore-dangle": "off",
         "prefer-arrow/prefer-arrow-functions": "off"
       }

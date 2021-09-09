@@ -4,7 +4,7 @@ import { PairStatus } from './pair-status.enum';
 
 
 @Component({
-  selector: 'app-pairing',
+  selector: 'oe-pairing',
   templateUrl: 'pairing.page.html'
 })
 export class PairingPage implements OnInit {

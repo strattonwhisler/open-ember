@@ -10,58 +10,84 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngIf="device.current$ | ngrxPush as currentDevice">
-    <ng-container *ngIf="device.getReads(currentDevice.deviceId) as reads">
-      <ion-grid>
+  <form *ngIf="device.current$ | ngrxPush as currentDevice" [formGroup]="deviceForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-text>
+            <h1>{{ currentDevice.name }}</h1>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <oe-battery [battery]="currentDevice.battery"></oe-battery>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-between">
+        <ion-col>
+          <oe-temperature [temperature]="currentDevice.currentTemperature" text="Current"></oe-temperature>
+        </ion-col>
+        <ion-col>
+          <oe-temperature [temperature]="currentDevice.targetTemperature" text="Target"></oe-temperature>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-range formControlName="targetTemperature" [min]="Temperature.Min" [max]="Temperature.Max" [step]="Temperature.CelsiusStep" pin="true">
+            <ion-icon size="small" slot="start" name="thermometer-outline"></ion-icon>
+            <ion-icon slot="end" name="thermometer-outline"></ion-icon>
+          </ion-range>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-input formControlName="targetTemperature" type="number" [min]="Temperature.Min" [max]="Temperature.Max" [step]="Temperature.CelsiusStep"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text>
+            <oe-color [color]="currentDevice.color" text="Current"></oe-color>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text>
+            <oe-color [color]="selectedColor" text="Selected"></oe-color>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ng-container formGroupName="color">
         <ion-row>
           <ion-col>
-            <ion-text>
-              <h1>{{ currentDevice.name }}</h1>
-            </ion-text>
+            <ion-range formControlName="r" min="0" max="255" pin="true"></ion-range>
           </ion-col>
         </ion-row>
-
         <ion-row>
           <ion-col>
-            <ion-text *ngrxLet="reads.currentBattery$; let currentBattery">
-              {{ currentBattery | percent }}
-              <ng-container [ngSwitch]="currentBattery | devicePowerState">
-                <ion-icon *ngSwitchCase="DevicePowerState.Charging" name="battery-charging-outline"></ion-icon>
-                <ion-icon *ngSwitchCase="DevicePowerState.Dead" name="battery-dead-outline"></ion-icon>
-                <ion-icon *ngSwitchCase="DevicePowerState.Half" name="battery-half-outline"></ion-icon>
-                <ion-icon *ngSwitchCase="DevicePowerState.Full" name="battery-full-outline"></ion-icon>
-              </ng-container>
-            </ion-text>
+            <ion-range formControlName="g" min="0" max="255" pin="true"></ion-range>
           </ion-col>
         </ion-row>
-
         <ion-row>
           <ion-col>
-            <ion-text *ngrxLet="reads.currentTemp$; let currentTemp">
-              Current
-              <ion-icon name="thermometer-outline"></ion-icon>
-              : {{ currentTemp | temperature }}
-            </ion-text>
-
-            <ion-text *ngrxLet="reads.targetTemp$; let targetTemp">
-              Target
-              <ion-icon name="thermometer-outline"></ion-icon>
-              : {{ targetTemp | temperature }}
-            </ion-text>
+            <ion-range formControlName="b" min="0" max="255" pin="true"></ion-range>
           </ion-col>
         </ion-row>
+      </ng-container>
 
-        <ion-row>
-          <ion-col>
-            <ion-text *ngrxLet="reads.ledColor$; let ledColor">
-              <ion-icon name="color-filter-outline"></ion-icon>
-              <svg style="height: 1em;" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
-                <circle r="0.5" cx="0.5" cy="0.5" [style.fill]="asRgbaString(ledColor)"/>
-              </svg>
-            </ion-text>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ng-container>
-  </ng-container>
+      <ion-row>
+        <ion-col>
+          <ion-input type="text"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

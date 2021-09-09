@@ -3,21 +3,26 @@ import { DeviceFacadeBase } from './device.state';
 import { Device } from './device.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app-state';
-import { Reads } from '~domain/device/reads';
+import { readAll, writeLedColor, writeTargetTemperature } from './device.actions';
+import { pluck } from 'rxjs/operators';
+import { Color } from '~shared/color.model';
 
 
 @Injectable()
 export class DeviceFacade extends DeviceFacadeBase {
-  private reads: Map<string, Reads> = new Map();
-
   constructor(private store$: Store<AppState>) {
     super(Device, store$);
   }
 
-  getReads(deviceId: string): Reads {
-    if (!this.reads.has(deviceId)) {
-      this.reads.set(deviceId, new Reads(deviceId));
-    }
-    return this.reads.get(deviceId);
+  readAll(deviceId: string): void {
+    this.store$.dispatch(readAll({ deviceId }));
+  }
+
+  writeTargetTemperature(deviceId: string, targetTemperature: number): void {
+    this.store$.dispatch(writeTargetTemperature({ deviceId, targetTemperature }));
+  }
+
+  writeLedColor(deviceId: string, color: Color): void {
+    this.store$.dispatch(writeLedColor({ deviceId, color }));
   }
 }

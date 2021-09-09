@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DevicePage } from './device.page';
 import { DevicesPageRoutingModule } from './device-routing.module';
 import { ReactiveComponentModule } from '@ngrx/component';
@@ -19,6 +19,7 @@ const PAGES = [
     IonicModule,
     DevicesPageRoutingModule,
     ReactiveComponentModule,
+    ReactiveFormsModule,
     SharedModule
   ],
   declarations: [...PAGES]

@@ -4,15 +4,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store/src/models';
 import { AppState } from './app-state';
-import { BleEffects } from './ble/ble.effects';
 import { Actions, EffectsModule } from '@ngrx/effects';
-import { BleFacade } from './ble/ble.facade';
-import { Device } from './device/device.model';
-import { DeviceService } from './device/device.service';
-import { deviceReducer } from './device/device.state';
-import { DeviceFacade } from './device/device.facade';
-import { DeviceEffects } from './device/device.effects';
-import { bleReducer } from './ble/ble.state';
+import { BleEffects, BleFacade, bleReducer } from './ble';
+import { Device, DeviceEffects, DeviceFacade, DeviceIoEffects, deviceReducer, DeviceService } from './device';
 // import './remote-devtools';
 
 
@@ -23,7 +17,8 @@ const FACADES = [
 
 const EFFECTS = [
   BleEffects,
-  DeviceEffects
+  DeviceEffects,
+  DeviceIoEffects
 ];
 
 const SERVICES = [
