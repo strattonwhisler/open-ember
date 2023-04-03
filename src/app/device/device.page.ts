@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DeviceFacade } from '~domain/device/device.facade';
 import { Color } from '~shared/color.model';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { Temperature } from '~shared/temperature.consts';
@@ -20,12 +20,12 @@ export class DevicePage implements OnInit, OnDestroy {
 
   readonly Temperature = Temperature;
 
-  readonly deviceForm = new FormGroup({
-    targetTemperature: new FormControl(50),
-    color: new FormGroup({
-      r: new FormControl(0),
-      g: new FormControl(0),
-      b: new FormControl(0)
+  readonly deviceForm = new UntypedFormGroup({
+    targetTemperature: new UntypedFormControl(50),
+    color: new UntypedFormGroup({
+      r: new UntypedFormControl(0),
+      g: new UntypedFormControl(0),
+      b: new UntypedFormControl(0)
     })
   });
 
