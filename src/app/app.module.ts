@@ -12,7 +12,6 @@ import { StateModule } from '~domain/state.module';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
