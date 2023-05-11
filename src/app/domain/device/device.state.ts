@@ -9,16 +9,22 @@ import {
 } from '~domain/device/device.actions';
 
 
+export interface DeviceState extends IEntityState<Device> {
+}
+
 export const {
   initialState,
   facade: DeviceFacadeBase,
+  makeEntity: makeDeviceEntity,
   actions: {
-    loadSuccess: loadDeviceSuccess
+    loadSuccess: loadDeviceSuccess,
+    loadAllSuccess: loadAllDevicesSuccess,
+    selectByKey: selectDeviceByKey
+  },
+  selectors: {
+    selectAll: allDevices
   }
 } = buildState(Device);
-
-export interface DeviceState extends IEntityState<Device> {
-}
 
 export const reduceDevicePropertyChange = (property: keyof Device) => (state: DeviceState, action: DeviceIdProps & PropertyChangeSuccessProps): DeviceState => ({
   ...state,

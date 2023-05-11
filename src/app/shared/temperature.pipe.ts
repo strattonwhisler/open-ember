@@ -4,7 +4,8 @@ import { temperatureScale, toFahrenheit } from '~shared/temperature.utils';
 
 
 @Pipe({
-  name: 'temperature'
+  name: 'temperature',
+  standalone: true
 })
 export class TemperaturePipe implements PipeTransform {
   transform(temp: number): string {

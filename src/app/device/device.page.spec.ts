@@ -9,9 +9,8 @@ describe('DevicePage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DevicePage ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    imports: [IonicModule.forRoot(), DevicePage]
+}).compileComponents();
 
     fixture = TestBed.createComponent(DevicePage);
     component = fixture.componentInstance;

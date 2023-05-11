@@ -1,9 +1,0 @@
-{
-	"appId": "dev.whisler.openember",
-	"appName": "open-ember",
-	"webDir": "www",
-	"bundledWebRuntime": false,
-	"android": {
-		"webContentsDebuggingEnabled": true
-	}
-}

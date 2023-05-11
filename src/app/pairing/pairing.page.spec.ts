@@ -9,9 +9,8 @@ describe('PairingPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PairingPage ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    imports: [IonicModule.forRoot(), PairingPage]
+}).compileComponents();
 
     fixture = TestBed.createComponent(PairingPage);
     component = fixture.componentInstance;

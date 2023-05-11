@@ -1,10 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DeviceFacade } from '~domain/device/device.facade';
-import { Color } from '~shared/color.model';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { debounceTime, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { IonicModule } from '@ionic/angular';
+import { RxEffects } from '@rx-angular/state/effects';
+import { RxIf } from '@rx-angular/template/if';
+import { debounceTime, withLatestFrom } from 'rxjs/operators';
+import { DeviceFacade } from '~domain/device/device.facade';
+import { BatteryComponent } from '~shared/battery.component';
+import { ColorComponent } from '~shared/color.component';
+import { Color } from '~shared/color.model';
+import { TemperatureComponent } from '~shared/temperature.component';
 import { Temperature } from '~shared/temperature.consts';
 
 
@@ -13,61 +25,66 @@ import { Temperature } from '~shared/temperature.consts';
   templateUrl: 'device.page.html',
   styles: [
     'ion-range { padding-top: 8px; }'
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    BatteryComponent,
+    ColorComponent,
+    FormsModule,
+    IonicModule,
+    ReactiveFormsModule,
+    RxIf,
+    TemperatureComponent
   ]
 })
-export class DevicePage implements OnInit, OnDestroy {
-  private destroy$$: Subject<void> =  new Subject();
+export class DevicePage implements OnInit {
+  protected readonly Temperature = Temperature;
 
-  readonly Temperature = Temperature;
-
-  readonly deviceForm = new UntypedFormGroup({
-    targetTemperature: new UntypedFormControl(50),
-    color: new UntypedFormGroup({
-      r: new UntypedFormControl(0),
-      g: new UntypedFormControl(0),
-      b: new UntypedFormControl(0)
+  protected readonly deviceForm = new FormGroup({
+    targetTemperature: new FormControl<number>(50),
+    color: new FormGroup({
+      r: new FormControl<number>(0),
+      g: new FormControl<number>(0),
+      b: new FormControl<number>(0)
     })
   });
 
-  readonly targetTemperatureControl = this.deviceForm.get('targetTemperature');
-  readonly colorControl = this.deviceForm.get('color');
+  private readonly targetTemperatureControl = this.deviceForm.get('targetTemperature');
+  private readonly colorControl = this.deviceForm.get('color');
 
-  constructor(public device: DeviceFacade, private activatedRoute: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.activatedRoute.params.pipe(
-      takeUntil(this.destroy$$)
-    ).subscribe(({ id }) => {
-      this.device.selectByKey(id);
-      this.device.readAll(id);
-    });
-
-    this.device.current$.pipe(
-      takeUntil(this.destroy$$)
-    ).subscribe(device => {
-      this.deviceForm.patchValue(device, { emitEvent: false });
-    });
-
-    this.targetTemperatureControl.valueChanges.pipe(
-      debounceTime(1500),
-      withLatestFrom(this.device.current$),
-      takeUntil(this.destroy$$)
-    ).subscribe(([targetTemperature, { deviceId }]) => {
-      this.device.writeTargetTemperature(deviceId, targetTemperature);
-    });
-
-    this.colorControl.valueChanges.pipe(
-      debounceTime(1500),
-      withLatestFrom(this.device.current$),
-      takeUntil(this.destroy$$)
-    ).subscribe(([color, { deviceId }]) => {
-      this.device.writeLedColor(deviceId, { ...color, a: 255 });
-    });
+  constructor(
+    protected readonly device: DeviceFacade,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly effects: RxEffects
+  ) {
   }
 
-  ngOnDestroy() {
-    this.destroy$$.next();
-    this.destroy$$.complete();
+  ngOnInit(): void {
+    this.effects.register(
+      this.device.current$.pipe(
+      ).subscribe(device => {
+        this.deviceForm.patchValue(device, { emitEvent: false });
+      })
+    );
+
+    this.effects.register(
+      this.targetTemperatureControl.valueChanges.pipe(
+        debounceTime(1500),
+        withLatestFrom(this.device.current$)
+      ).subscribe(([targetTemperature, { deviceId }]) => {
+        this.device.writeTargetTemperature(deviceId, targetTemperature);
+      })
+    );
+
+    this.effects.register(
+      this.colorControl.valueChanges.pipe(
+        debounceTime(1500),
+        withLatestFrom(this.device.current$)
+      ).subscribe(([color, { deviceId }]) => {
+        this.device.writeLedColor(deviceId, { ...color, a: 255 });
+      })
+    );
   }
 
   get selectedColor(): Color {

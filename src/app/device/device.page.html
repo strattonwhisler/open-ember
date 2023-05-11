@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <form *ngIf="device.current$ | ngrxPush as currentDevice" [formGroup]="deviceForm">
+  <form *rxIf="device.current$ as currentDevice" [formGroup]="deviceForm">
     <ion-grid>
       <ion-row>
         <ion-col>

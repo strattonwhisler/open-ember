@@ -7,7 +7,6 @@ import { Color } from '~shared/color.model';
 const TEMPERATURE_SCALE_FACTOR = 100;
 
 @Injectable()
-// export class DeviceService implements IAutoEntityService<Device> {
 export class DeviceService {
   async readCurrentTemperature(deviceId: string): Promise<number> {
     const dataView = await BleClient.read(deviceId, UUID.EMBER_SERVICE, UUID.CURRENT_TEMP);

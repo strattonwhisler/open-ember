@@ -1,5 +1,5 @@
-import { createAction, props } from '@ngrx/store';
 import { ScanResult } from '@capacitor-community/bluetooth-le';
+import { createAction, props } from '@ngrx/store';
 import { ErrorProps } from '../state.utils';
 
 /* Initialize */

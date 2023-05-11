@@ -12,14 +12,14 @@ import { ScanResult } from '@capacitor-community/bluetooth-le';
 
 export interface BleState {
   scanResults: ScanResult[];
-  scanning: boolean;
-  connecting: boolean;
+  isScanning: boolean;
+  isConnecting: boolean;
 }
 
 export const initialBleState: BleState = {
   scanResults: [],
-  scanning: false,
-  connecting: false
+  isScanning: false,
+  isConnecting: false
 };
 
 export const reduceScanResults = (state: BleState, { results }: BleScanResultProps): BleState => ({
@@ -34,22 +34,22 @@ export const reduceScanNoResults = (state: BleState, /* unused */): BleState => 
 
 export const reduceScanStart = (state: BleState, /* unused */): BleState => ({
   ...state,
-  scanning: true
+  isScanning: true
 });
 
 export const reduceScanStop = (state: BleState, /* unused */): BleState => ({
   ...state,
-  scanning: false
+  isScanning: false
 });
 
 export const reduceConnectStart = (state: BleState, /* unused */): BleState => ({
   ...state,
-  connecting: true
+  isConnecting: true
 });
 
 export const reduceConnectStop = (state: BleState, /* unused */): BleState => ({
   ...state,
-  connecting: false
+  isConnecting: false
 });
 
 const reducer = createReducer(

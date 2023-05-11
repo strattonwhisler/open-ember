@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { bleConnectSuccess } from '../ble/ble.actions';
-import { catchError, concatMap, exhaustMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { loadDeviceSuccess } from './device.state';
 import { Store } from '@ngrx/store';
-import { scanResults } from '../ble/ble.selectors';
+import { from, of } from 'rxjs';
+import { catchError, concatMap, map, switchMap } from 'rxjs/operators';
 import {
   readAll,
   readBattery,
@@ -22,11 +20,11 @@ import {
   writeLedColor,
   writeLedColorFailure,
   writeLedColorSuccess,
-  writeTargetTemperature, writeTargetTemperatureFailure,
+  writeTargetTemperature,
+  writeTargetTemperatureFailure,
   writeTargetTemperatureSuccess
 } from '~domain/device/device.actions';
 import { DeviceService } from '~domain/device/device.service';
-import { from, of } from 'rxjs';
 
 
 @Injectable()

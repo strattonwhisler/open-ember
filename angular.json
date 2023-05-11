@@ -32,7 +32,7 @@
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss"],
             "scripts": [],
-            "aot": false,
+            "aot": true,
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
@@ -52,7 +52,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -171,7 +170,8 @@
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ]
+    ],
+    "analytics": false
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

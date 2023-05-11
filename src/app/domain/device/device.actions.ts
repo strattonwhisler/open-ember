@@ -65,6 +65,10 @@ interface WriteLedColorSuccessProps {
 export const writeLedColorSuccess = createAction('@open-ember/device/write-led-color/success', props<DeviceIdProps & WriteLedColorSuccessProps>());
 export const writeLedColorFailure = createAction('@open-ember/device/write-led-color/failure', props<ErrorProps>());
 
+/* Storage */
+
+export const loadPersistedDevices = createAction('@open-ember/device/load-persisted-devices');
+
 /* Utilities */
 
 export type PropertyChangeSuccessProps =

@@ -1,0 +1,18 @@
+export const typeCases = [
+  { type: 'null', value: null },
+  { type: 'booleans (true)', value: true },
+  { type: 'booleans (false)', value: false },
+  { type: 'numbers (nullish)', value: 0 },
+  { type: 'numbers (positive)', value: 1 },
+  { type: 'numbers (negative)', value: -1 },
+  { type: 'numbers (floating-point)', value: 0.5 },
+  // { type: 'numbers (NaN)', value: Number.NaN },
+  // { type: 'numbers (positive infinity)', value: Number.POSITIVE_INFINITY },
+  // { type: 'numbers (negative infinity)', value: Number.NEGATIVE_INFINITY },
+  { type: 'numbers (max value)', value: Number.MAX_VALUE },
+  { type: 'numbers (min value)', value: Number.MIN_VALUE },
+  { type: 'strings (nullish)', value: '' },
+  { type: 'strings', value: 'value' },
+  { type: 'arrays', value: [] },
+  { type: 'objects', value: {} },
+];

@@ -13,46 +13,27 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list *ngIf="(device.all$ | ngrxPush).length; else noDevices">
-    <ion-card
-      *ngFor="let currentDevice of device.all$ | ngrxPush"
-      (click)="router.navigate(['/device', currentDevice.deviceId])"
-    >
-      <ion-card-header>
-        <ion-card-title>{{ currentDevice.name }}</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-grid>
-          <ion-row class="ion-justify-content-between">
-            <ion-col>
-              <oe-temperature [temperature]="currentDevice.currentTemperature" text="Current"></oe-temperature>
-            </ion-col>
-            <ion-col>
-              <oe-temperature [temperature]="currentDevice.targetTemperature" text="Target"></oe-temperature>
-            </ion-col>
-            <ion-col>
-              <oe-battery [battery]="currentDevice.battery"></oe-battery>
-            </ion-col>
-            <ion-col>
-              <oe-color-dot [color]="currentDevice.color"></oe-color-dot>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
+  <ion-list *rxIf="device.hasEntities$; else noDevices">
+    <oe-device-preview
+      *rxFor="let currentDevice of device.all$"
+      [device]="currentDevice"
+      [routerLink]="['/device', currentDevice.deviceId]"
+    ></oe-device-preview>
   </ion-list>
 
   <ng-template #noDevices>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-text class="ion-text-center">
-            <p>You have no paired devices.<p>
-            <p>To get started, click "Pair<ion-icon name="add-outline"></ion-icon>".<p>
-          </ion-text>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-text class="oe-hero ion-text-center">
+      <p>You have no paired devices.<p>
+      <p>To get started, click "Pair <ion-icon name="add-outline"></ion-icon>"<br>in the upper-right corner.</p>
+      <svg width="16rem" height="16rem" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+        <g id="mug">
+          <path style="fill:#000000;" d="M 3 2 l 0 6 q 0 2, 3 2 t 3 -2 l 0 -6 q -3 -0.2, -6 0 Z" />
+          <path style="fill:#000000;" d="M 9 3.252 l 0.5 0 q 1 0, 1 1 l 0 2 q 0 1, -1 1 l -0.5 0 l 0 -0.5 l 0.5 0 q 0.5 0, 0.5 -0.5 l 0 -2 q 0 -0.5, -0.5 -0.5 l -0.5 0 Z" />
+        </g>
+        <g id="led">
+          <path style="fill:#FFFFFF;" d="M 5 9.25 q 1 0.1, 2 0 q -1 -0.1, -2 0 Z" />
+        </g>
+      </svg>
+    </ion-text>
   </ng-template>
 </ion-content>

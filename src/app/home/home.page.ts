@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
-import { asRgbaString } from '~shared/color.model';
-import { DeviceFacade } from '~domain/device/device.facade';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { RxFor } from '@rx-angular/template/for';
+import { RxIf } from '@rx-angular/template/if';
 import { BleFacade } from '~domain/ble/ble.facade';
-import { DevicePowerState } from '~shared/device-power-state';
-import { Router } from '@angular/router';
+import { DeviceFacade } from '~domain/device/device.facade';
+import { DevicePreviewComponent } from './device-preview.component';
 
 
 @Component({
   selector: 'oe-home',
-  templateUrl: 'home.page.html'
+  templateUrl: 'home.page.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [IonicModule, RouterLink, RxIf, RxFor, DevicePreviewComponent]
 })
 export class HomePage {
-  readonly DevicePowerState = DevicePowerState;
-  readonly asRgbaString = asRgbaString;
-
   constructor(
-    public device: DeviceFacade,
-    public ble: BleFacade,
-    public router: Router
-  ) {}
+    protected readonly device: DeviceFacade,
+    protected readonly ble: BleFacade
+  ) {
+  }
 }
