@@ -13,9 +13,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list *rxIf="device.hasEntities$; else noDevices">
+  <ion-list *rxIf="device.hasConnectedDevice$; else noDevices">
     <oe-device-preview
-      *rxFor="let currentDevice of device.all$"
+      *rxFor="let currentDevice of device.connectedDevices$"
       [device]="currentDevice"
       [routerLink]="['/device', currentDevice.deviceId]"
     ></oe-device-preview>

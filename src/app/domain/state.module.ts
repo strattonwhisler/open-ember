@@ -53,7 +53,8 @@ export const STATE_PROVIDERS: Array<Provider | EnvironmentProviders> = [
   provideStore(REDUCERS, {
     metaReducers: META_REDUCERS,
     runtimeChecks: {
-      strictStateSerializability: true,
+      // Auto-Entity includes classes in its entities:
+      strictStateSerializability: false,
       // Auto-Entity includes classes in its actions:
       strictActionSerializability: false,
       strictStateImmutability: true,

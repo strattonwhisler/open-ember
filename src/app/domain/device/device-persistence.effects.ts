@@ -2,9 +2,9 @@ import { Injectable, NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { tap, zip } from 'rxjs';
+import { skip, tap, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ionicStorageAdapter, PersistentBehaviorSubject } from '~util/persistent-behavior-subject';
+import { ionicStorageAdapter, localStorageAdapter, PersistentBehaviorSubject } from '~util/persistent-behavior-subject';
 import { loadPersistedDevices } from './device.actions';
 import { Device } from './device.model';
 import { allDevices, loadAllDevicesSuccess, makeDeviceEntity } from './device.state';
@@ -14,9 +14,14 @@ const STORAGE_DEVICES_KEY = 'devices';
 
 @Injectable()
 export class DevicePersistenceEffects {
-  storedDevices$ = new PersistentBehaviorSubject([], ionicStorageAdapter<Device[]>(this.storage, STORAGE_DEVICES_KEY), {
-    writeOnMissing: false
-  });
+  storedDevices$ = new PersistentBehaviorSubject<Device[]>(
+    [],
+    // ionicStorageAdapter(this.storage, STORAGE_DEVICES_KEY),
+    localStorageAdapter(STORAGE_DEVICES_KEY),
+    {
+      writeOnMissing: false
+    }
+  );
 
   loadPersistedDevices$ = createEffect(() =>
     zip([
@@ -31,6 +36,7 @@ export class DevicePersistenceEffects {
 
   storePersistedDevices$ = createEffect(() =>
     this.store$.select(allDevices).pipe(
+      skip(1),
       tap(devices => this.storedDevices$.next(devices))
     ),
     { dispatch: false }

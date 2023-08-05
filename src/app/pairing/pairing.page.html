@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/home" text="Home"></ion-back-button>
     </ion-buttons>
     <ion-title>
       Pairing
@@ -13,13 +13,44 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-label>Available Devices</ion-label>
-        <ion-spinner *rxIf="ble.isScanning$"></ion-spinner>
+        <ion-list [inset]="true">
+          <ion-list-header>
+            <ion-label>My Devices</ion-label>
+          </ion-list-header>
+          <ion-item
+            *rxFor="let currentDevice of device.knownDevices$; trackBy: trackByDeviceId"
+          >
+            <ion-label>{{ currentDevice.name }}</ion-label>
+            <div slot="end">
+              <!--              <ng-container-->
+              <!--                [ngSwitch]="device | connectedStatus"-->
+              <!--              >-->
+              <ion-note slot="end">Not Connected</ion-note>
+              <!--                <ion-note slot="end">Connected</ion-note>-->
+              <!--                <ion-spinner slot="end"></ion-spinner>-->
+              <!--              </ng-container>-->
+              <ion-button
+                [routerLink]="[currentDevice.deviceId]"
+                aria-label="Details"
+                fill="clear"
+              >
+                <ion-icon
+                  slot="icon-only"
+                  name="information-circle-outline"
+                ></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-list [inset]="true">
+          <ion-list-header>
+            <ion-label>Other Devices</ion-label>
+            <ion-spinner *rxIf="ble.isScanning$"></ion-spinner>
+          </ion-list-header>
           <oe-scan-result
             *rxFor="let scanResult of ble.scanResults$; trackBy: trackByResultDeviceId"
             [scanResult]="scanResult"
