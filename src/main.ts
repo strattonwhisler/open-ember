@@ -1,28 +1,12 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { IonicModule } from '@ionic/angular';
-import { IonicStorageModule } from '@ionic/storage-angular';
-import { STATE_PROVIDERS } from '~domain/state.module';
-import { ROUTE_PROVIDERS } from './app/app.routes';
-import { AppComponent } from './app/app.component';
+import { enableProdMode } from '@angular/core';
+import { platformBrowser } from '@angular/platform-browser';
 import { environment } from './environments/environment';
-import { RxIf } from "@rx-angular/template/if";
+import { AppModule } from './app/app.module';
+
 
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrapApplication(
-  AppComponent,
-  {
-    providers: [
-      ...STATE_PROVIDERS,
-      ...ROUTE_PROVIDERS,
-      importProvidersFrom(
-        IonicModule.forRoot(),
-        IonicStorageModule.forRoot(),
-        RxIf
-      ),
-    ]
-  }
-).catch(err => console.log(err));
+platformBrowser().bootstrapModule(AppModule)
+  .catch(err => console.log(err));

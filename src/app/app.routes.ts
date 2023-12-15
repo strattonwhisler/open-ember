@@ -1,13 +1,14 @@
-import { EnvironmentProviders, NgModule, Provider } from '@angular/core';
+import { EnvironmentProviders, Provider } from '@angular/core';
 import {
   PreloadAllModules,
   provideRouter,
   RouteReuseStrategy,
-  RouterModule,
-  Routes, withDebugTracing,
+  Routes,
+  withDebugTracing,
   withPreloading
 } from '@angular/router';
 import { IonicRouteStrategy } from '@ionic/angular';
+
 
 const APP_ROUTES: Routes = [
   {
