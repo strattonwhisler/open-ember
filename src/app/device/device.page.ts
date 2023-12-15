@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,6 +18,7 @@ import { ColorComponent } from '~shared/color.component';
 import { Color } from '~shared/color.model';
 import { TemperatureComponent } from '~shared/temperature.component';
 import { Temperature } from '~shared/temperature.consts';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -68,23 +69,45 @@ export class DevicePage implements OnInit {
       })
     );
 
-    this.effects.register(
-      this.targetTemperatureControl.valueChanges.pipe(
-        debounceTime(1500),
-        withLatestFrom(this.device.current$)
-      ).subscribe(([targetTemperature, { deviceId }]) => {
-        this.device.writeTargetTemperature(deviceId, targetTemperature);
-      })
-    );
+    // this.effects.register(
+    //   this.targetTemperatureControl.valueChanges.pipe(
+    //     debounceTime(1500),
+    //     withLatestFrom(this.device.current$)
+    //   ).subscribe(([targetTemperature, { deviceId }]) => {
+    //     this.device.writeTargetTemperature(deviceId, targetTemperature);
+    //   })
+    // );
+    //
+    // this.effects.register(
+    //   this.colorControl.valueChanges.pipe(
+    //     debounceTime(1500),
+    //     withLatestFrom(this.device.current$)
+    //   ).subscribe(([color, { deviceId }]) => {
+    //     this.device.writeLedColor(deviceId, { ...color, a: 255 });
+    //   })
+    // );
 
-    this.effects.register(
-      this.colorControl.valueChanges.pipe(
-        debounceTime(1500),
-        withLatestFrom(this.device.current$)
-      ).subscribe(([color, { deviceId }]) => {
-        this.device.writeLedColor(deviceId, { ...color, a: 255 });
-      })
-    );
+    const currentDevice = toSignal(this.device.current$);
+
+    const targetTemperature = toSignal(this.targetTemperatureControl.valueChanges.pipe(
+      debounceTime(1500)
+    ), {
+      initialValue: this.targetTemperatureControl.value
+    });
+
+    effect(() => {
+      this.device.writeTargetTemperature(currentDevice().deviceId, targetTemperature());
+    });
+
+    const color = toSignal(this.colorControl.valueChanges.pipe(
+      debounceTime(1500)
+    ), {
+      initialValue: this.colorControl.value
+    });
+
+    effect(() => {
+      this.device.writeLedColor(currentDevice().deviceId, { ...color(), a: 255 });
+    });
   }
 
   get selectedColor(): Color {

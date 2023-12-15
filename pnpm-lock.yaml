@@ -23,9 +23,6 @@ dependencies:
   '@angular/router':
     specifier: ^16.1.6
     version: 16.1.6(@angular/common@16.1.6)(@angular/core@16.1.6)(@angular/platform-browser@16.1.6)(rxjs@7.8.0)
-  '@briebug/ngrx-auto-entity':
-    specifier: 14.0.0-beta.1
-    version: 14.0.0-beta.1(@angular/common@16.1.6)(@angular/core@16.1.6)(@ngrx/effects@16.1.0)(@ngrx/store@16.1.0)(rxjs@7.8.0)
   '@capacitor-community/bluetooth-le':
     specifier: ^3.0.0
     version: 3.0.0(@capacitor/core@5.2.2)
@@ -2118,23 +2115,6 @@ packages:
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
     dev: true
-
-  /@briebug/ngrx-auto-entity@14.0.0-beta.1(@angular/common@16.1.6)(@angular/core@16.1.6)(@ngrx/effects@16.1.0)(@ngrx/store@16.1.0)(rxjs@7.8.0):
-    resolution: {integrity: sha512-Nirksm66tpXcMKtV7P46uhYO9sl2zFTrkrjZQrzX8Ioy73dA+O1Au8mcHSx4OJcUi8SqgFJ0bLnFqtfvZpVN2g==}
-    peerDependencies:
-      '@angular/common': 13 - 14
-      '@angular/core': 13 - 14
-      '@ngrx/effects': 13 - 14
-      '@ngrx/store': 13 - 14
-      rxjs: ^7.4.0
-    dependencies:
-      '@angular/common': 16.1.6(@angular/core@16.1.6)(rxjs@7.8.0)
-      '@angular/core': 16.1.6(rxjs@7.8.0)(zone.js@0.13.1)
-      '@ngrx/effects': 16.1.0(@angular/core@16.1.6)(@ngrx/store@16.1.0)(rxjs@7.8.0)
-      '@ngrx/store': 16.1.0(@angular/core@16.1.6)(rxjs@7.8.0)
-      rxjs: 7.8.0
-      tslib: 2.6.1
-    dev: false
 
   /@capacitor-community/bluetooth-le@3.0.0(@capacitor/core@5.2.2):
     resolution: {integrity: sha512-fBy7EXCg9udMf0xW2lJ9uULftJWapSkEFp4WccQZbJjS5vrA146jOGp3dTMnZWPph1wTKAF0dHLCLyBoVDk1vg==}
@@ -9582,6 +9562,7 @@ packages:
   /pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: true
 
   /pinkie-promise@2.0.1:
@@ -9798,6 +9779,7 @@ packages:
 
   /prr@1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
+    requiresBuild: true
     dev: true
     optional: true
 

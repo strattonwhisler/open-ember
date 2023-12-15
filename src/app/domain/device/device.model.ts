@@ -1,11 +1,8 @@
-import { Entity, Key } from '@briebug/ngrx-auto-entity';
 import { Color } from '~shared/color.model';
 
-@Entity({
-  modelName: 'Device'
-})
+
 export class Device {
-  @Key deviceId: string;
+  deviceId: string;
 
   /** Friendly name */
   name: string;

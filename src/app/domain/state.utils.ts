@@ -7,3 +7,7 @@ export const timeout = (time: number) => new Promise<void>(resolve => setTimeout
 export interface ErrorProps {
   error: any;
 }
+
+export interface CorrelationProps {
+  correlationId: string;
+}

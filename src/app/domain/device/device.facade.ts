@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
-import { DeviceFacadeBase } from './device.state';
-import { Device } from './device.model';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '../app-state';
-import { readAll, writeLedColor, writeTargetTemperature } from './device.actions';
+import { deleteDeviceByKey, readAll, writeLedColor, writeTargetTemperature } from './device.actions';
 import { map } from 'rxjs/operators';
 import { Color } from '~shared/color.model';
+import { allDevices, deviceIds, deviceEntities, currentDevice } from './device.selectors';
 
 
 export const isNotEmpty = <T>(value: T[]): boolean => value.length > 0;
 
 @Injectable()
-export class DeviceFacade extends DeviceFacadeBase {
+export class DeviceFacade {
+  public readonly ids$ = this.store$.pipe(select(deviceIds))
+  public readonly entities$ = this.store$.pipe(select(deviceEntities))
+  public readonly all$ = this.store$.pipe(select(allDevices));
+  public readonly current$ = this.store$.pipe(select(currentDevice));
+
   public readonly knownDevices$ = this.all$;
 
   public readonly connectedDevices$ = this.all$.pipe(
@@ -23,7 +27,10 @@ export class DeviceFacade extends DeviceFacadeBase {
   );
 
   constructor(private store$: Store<AppState>) {
-    super(Device, store$);
+  }
+
+  deleteByKey(deviceId: string): void {
+    this.store$.dispatch(deleteDeviceByKey({ deviceId, correlationId: crypto.randomUUID() }));
   }
 
   readAll(deviceId: string): void {

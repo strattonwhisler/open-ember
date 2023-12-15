@@ -21,7 +21,6 @@
     "@angular/platform-browser": "^16.1.6",
     "@angular/platform-browser-dynamic": "^16.1.6",
     "@angular/router": "^16.1.6",
-    "@briebug/ngrx-auto-entity": "14.0.0-beta.1",
     "@capacitor-community/bluetooth-le": "^3.0.0",
     "@capacitor/android": "^5.2.2",
     "@capacitor/app": "^5.0.6",

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BleClient } from '@capacitor-community/bluetooth-le';
-import { UUID } from '~domain/ble/ember-ble.consts';
+import { UUID } from '../ble/ember-ble.consts';
 import { Color } from '~shared/color.model';
 
 

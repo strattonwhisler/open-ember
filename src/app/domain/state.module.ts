@@ -1,5 +1,4 @@
-import { EnvironmentProviders, importProvidersFrom, Provider } from '@angular/core';
-import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
+import { EnvironmentProviders, Provider } from '@angular/core';
 import { provideEffects } from '@ngrx/effects';
 import { ActionReducerMap, MetaReducer, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -66,8 +65,5 @@ export const STATE_PROVIDERS: Array<Provider | EnvironmentProviders> = [
   ...FACADES,
   ...ENTITIES,
   ...SERVICES,
-  provideStoreDevtools(),
-  importProvidersFrom(
-    NgrxAutoEntityModule.forRoot()
-  )
+  provideStoreDevtools()
 ];

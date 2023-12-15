@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { skip, tap, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ionicStorageAdapter, localStorageAdapter, PersistentBehaviorSubject } from '~util/persistent-behavior-subject';
-import { loadPersistedDevices } from './device.actions';
+import { loadAllDevicesSuccess, loadPersistedDevices } from './device.actions';
 import { Device } from './device.model';
-import { allDevices, loadAllDevicesSuccess, makeDeviceEntity } from './device.state';
+import { allDevices } from '~domain/device/device.selectors';
 
 
 const STORAGE_DEVICES_KEY = 'devices';
@@ -29,8 +29,7 @@ export class DevicePersistenceEffects {
       this.actions$.pipe(ofType(loadPersistedDevices))
     ]).pipe(
       map(streams => streams[0]),
-      map(devices => devices.map(makeDeviceEntity)),
-      map(entities => loadAllDevicesSuccess({ entities }))
+      map(devices => loadAllDevicesSuccess({ devices, correlationId: crypto.randomUUID() }))
     )
   );
 

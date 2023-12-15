@@ -1,11 +1,37 @@
 import { createAction, props } from '@ngrx/store';
-import { ErrorProps } from '~domain/state.utils';
+import { CorrelationProps, ErrorProps } from '../state.utils';
 import { Color } from '~shared/color.model';
+import { Device } from './device.model';
 
 
 export interface DeviceIdProps {
   deviceId: string;
 }
+
+/* CRUD */
+
+export interface DeviceProps {
+  device: Device;
+}
+
+export const loadDeviceByKey = createAction('@open-ember/device/load-by-key', props<DeviceIdProps & CorrelationProps>());
+export const loadDeviceSuccess = createAction('@open-ember/device/load/success', props<DeviceProps & CorrelationProps>());
+export const loadDeviceFailure = createAction('@open-ember/device/load/failure', props<ErrorProps & CorrelationProps>());
+
+export const loadAllDevices = createAction('@open-ember/device/load-all', props<CorrelationProps>());
+export interface DevicesProps {
+  devices: Device[];
+}
+export const loadAllDevicesSuccess = createAction('@open-ember/device/load-all/success', props<DevicesProps & CorrelationProps>());
+export const loadAllDevicesFailure = createAction('@open-ember/device/load-all/failure', props<ErrorProps & CorrelationProps>());
+
+export const deleteDeviceByKey = createAction('@open-ember/device/delete-by-key', props<DeviceIdProps & CorrelationProps>());
+export const deleteDeviceSuccess = createAction('@open-ember/device/delete/success', props<DeviceIdProps & CorrelationProps>());
+export const deleteDeviceFailure = createAction('@open-ember/device/delete/failure', props<DeviceIdProps & ErrorProps & CorrelationProps>());
+
+/* Selection */
+
+export const selectDeviceByKey = createAction('@open-ember/device/select-by-key', props<DeviceIdProps>());
 
 /* All */
 

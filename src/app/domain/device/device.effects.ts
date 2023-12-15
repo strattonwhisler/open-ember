@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { exhaustMap, withLatestFrom } from 'rxjs/operators';
-import { readAll } from '~domain/device/device.actions';
+import { loadDeviceSuccess, readAll } from './device.actions';
 import { bleConnectSuccess } from '../ble/ble.actions';
 import { scanResults } from '../ble/ble.selectors';
-import { loadDeviceSuccess } from './device.state';
 
 
 @Injectable()
@@ -20,10 +19,11 @@ export class DeviceEffects {
         const device = results.find(result => result.device.deviceId === deviceId);
         return [
           loadDeviceSuccess({
-            entity: {
+            device: {
               deviceId,
               name: device.localName || device.device.name
-            }
+            },
+            correlationId: crypto.randomUUID()
           }),
           readAll({ deviceId })
         ];

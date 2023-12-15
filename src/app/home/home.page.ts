@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { RxFor } from '@rx-angular/template/for';
@@ -16,9 +16,6 @@ import { DevicePreviewComponent } from './device-preview.component';
   imports: [IonicModule, RouterLink, RxIf, RxFor, DevicePreviewComponent]
 })
 export class HomePage {
-  constructor(
-    protected readonly device: DeviceFacade,
-    protected readonly ble: BleFacade
-  ) {
-  }
+  protected readonly device = inject(DeviceFacade);
+  protected readonly ble = inject(BleFacade);
 }
