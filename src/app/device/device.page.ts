@@ -37,7 +37,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
     ReactiveFormsModule,
     RxIf,
     TemperatureComponent
-  ]
+  ],
+  providers: [RxEffects]
 })
 export class DevicePage implements OnInit {
   protected readonly Temperature = Temperature;
@@ -59,6 +60,27 @@ export class DevicePage implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly effects: RxEffects
   ) {
+    // const currentDevice = toSignal(this.device.current$);
+    //
+    // const targetTemperature = toSignal(this.targetTemperatureControl.valueChanges.pipe(
+    //   debounceTime(1500)
+    // ), {
+    //   initialValue: this.targetTemperatureControl.value
+    // });
+    //
+    // effect(() => {
+    //   this.device.writeTargetTemperature(currentDevice().deviceId, targetTemperature());
+    // });
+    //
+    // const color = toSignal(this.colorControl.valueChanges.pipe(
+    //   debounceTime(1500)
+    // ), {
+    //   initialValue: this.colorControl.value
+    // });
+    //
+    // effect(() => {
+    //   this.device.writeLedColor(currentDevice().deviceId, { ...color(), a: 255 });
+    // });
   }
 
   ngOnInit(): void {
@@ -69,45 +91,23 @@ export class DevicePage implements OnInit {
       })
     );
 
-    // this.effects.register(
-    //   this.targetTemperatureControl.valueChanges.pipe(
-    //     debounceTime(1500),
-    //     withLatestFrom(this.device.current$)
-    //   ).subscribe(([targetTemperature, { deviceId }]) => {
-    //     this.device.writeTargetTemperature(deviceId, targetTemperature);
-    //   })
-    // );
-    //
-    // this.effects.register(
-    //   this.colorControl.valueChanges.pipe(
-    //     debounceTime(1500),
-    //     withLatestFrom(this.device.current$)
-    //   ).subscribe(([color, { deviceId }]) => {
-    //     this.device.writeLedColor(deviceId, { ...color, a: 255 });
-    //   })
-    // );
+    this.effects.register(
+      this.targetTemperatureControl.valueChanges.pipe(
+        debounceTime(1500),
+        withLatestFrom(this.device.current$)
+      ).subscribe(([targetTemperature, { deviceId }]) => {
+        this.device.writeTargetTemperature(deviceId, targetTemperature);
+      })
+    );
 
-    const currentDevice = toSignal(this.device.current$);
-
-    const targetTemperature = toSignal(this.targetTemperatureControl.valueChanges.pipe(
-      debounceTime(1500)
-    ), {
-      initialValue: this.targetTemperatureControl.value
-    });
-
-    effect(() => {
-      this.device.writeTargetTemperature(currentDevice().deviceId, targetTemperature());
-    });
-
-    const color = toSignal(this.colorControl.valueChanges.pipe(
-      debounceTime(1500)
-    ), {
-      initialValue: this.colorControl.value
-    });
-
-    effect(() => {
-      this.device.writeLedColor(currentDevice().deviceId, { ...color(), a: 255 });
-    });
+    this.effects.register(
+      this.colorControl.valueChanges.pipe(
+        debounceTime(1500),
+        withLatestFrom(this.device.current$)
+      ).subscribe(([color, { deviceId }]) => {
+        this.device.writeLedColor(deviceId, { ...color, a: 255 });
+      })
+    );
   }
 
   get selectedColor(): Color {

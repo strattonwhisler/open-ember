@@ -7,10 +7,20 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
+import chai from 'chai';
+import parentheses from 'chai-parentheses';
+import sinonChai from 'sinon-chai';
+import chaiAsPromised from 'chai-as-promised';
+
+chai.use(parentheses);
+chai.use(sinonChai);
+chai.use(chaiAsPromised);
+
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(), {
+  platformBrowserDynamicTesting(),
+  {
     teardown: { destroyAfterEach: false }
-}
+  }
 );
